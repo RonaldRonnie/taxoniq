@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 [Taxoniq](https://github.com/chanzuckerberg/taxoniq) index for the NCBI Taxonomy database.

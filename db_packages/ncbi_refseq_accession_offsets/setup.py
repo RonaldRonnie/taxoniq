@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 [Taxoniq](https://github.com/chanzuckerberg/taxoniq) accession index for the NCBI BLAST databases.

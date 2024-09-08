@@ -23,7 +23,7 @@ check-release-deps:
 release: check-release-deps
 	git pull
 	@if [[ -z $$TAG ]]; then echo "Use release-{major,minor,patch}"; exit 1; fi
-	git clean -x --force $$(python3 setup.py --name)
+	git clean -x --force $$(python setup.py --name)
 	sed -i -e "s/version=\([\'\"]\)[0-9]*\.[0-9]*\.[0-9]*/version=\1$${TAG:1}/" setup.py
 	$(MAKE) version
 	git add setup.py taxoniq/version.py
@@ -47,12 +47,12 @@ release-db-packages: check-release-deps
 	git commit -m "Update data packages to version $$(cat latest-dir | cut -f 1-3 -d -)"
 	git push
 	-rm -rf db_packages/*/build db_packages/*/dist
-	for p in db_packages/*; do (cd $$p; python3 setup.py bdist_wheel); done
+	for p in db_packages/*; do (cd $$p; python setup.py bdist_wheel); done
 	twine upload db_packages/ncbi_taxon_db/dist/*.whl db_packages/ncbi_refseq_*/dist/*.whl --verbose
-	gh release upload v$$(python3 setup.py --version) db_packages/ncbi_genbank_*/dist/*.whl
+	gh release upload v$$(python setup.py --version) db_packages/ncbi_genbank_*/dist/*.whl
 
 release-pypi:
-	python3 setup.py sdist
+	python setup.py sdist
 	twine upload dist/*.tar.gz dist/*.whl --verbose
 
 release-docs:
