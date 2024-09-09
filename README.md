@@ -30,10 +30,10 @@ is available.
 
 ## Installation
 
-    pip install taxoniq
+    pip3 install taxoniq
 
 Pre-built wheels are available for Python 3.5+ on Linux and MacOS. On MacOS 11 Big Sur, Pip 20.3+ is required to install
-pre-built wheels (you can check your version with `pip --version` and upgrade with `pip install --upgrade pip`).
+pre-built wheels (you can check your version with `pip3 --version` and upgrade with `pip3 install --upgrade pip`).
 
 ## Synopsis
 
@@ -112,7 +112,7 @@ Mirrors of the NCBI BLAST databases are maintained on [AWS S3](https://registry.
 superior bandwidth and throughput compared to the NCBI FTP server, so range requests can be used to retrieve individual
 sequences from the database files without downloading and keeping a copy of the whole database.
 
-The Taxoniq PyPI distribution (the package you install using `pip install taxoniq`) indexes sequence accession IDs for
+The Taxoniq PyPI distribution (the package you install using `pip3 install taxoniq`) indexes sequence accession IDs for
 the following NCBI BLAST databases:
 
 - Refseq viruses representative genomes (`ref_viruses_rep_genomes`) (nucleotide)
@@ -148,7 +148,7 @@ for accession, seq in ThreadPoolExecutor().map(fetch_seq, taxon.refseq_represent
 This operation is also available in the CLI, as described below.
 
 ## Command-line interface
-`pip install taxoniq` installs a command-line utility, `taxoniq`, which can be used to perform many of the same
+`pip3 install taxoniq` installs a command-line utility, `taxoniq`, which can be used to perform many of the same
 functions provided by the Python API:
 ```
 >taxoniq child-nodes --taxon-id 2 --output-format '{tax_id}: {scientific_name}'
@@ -190,12 +190,12 @@ To retrieve multiple sequences in FASTA format, use `--accession-id -` and pass 
 
 ## Using the nr/nt databases
 Because of their size, taxoniq wheels with indexes of the NT (GenBank Non-redundant nucleotide) BLAST database are
-distributed on GitHub instead of PyPI. After running `pip install taxoniq`, you can install the NT indexes as follows:
+distributed on GitHub instead of PyPI. After running `pip3 install taxoniq`, you can install the NT indexes as follows:
 
 - Navigate to https://github.com/taxoniq/taxoniq/releases/latest
 - In the "Assets" section, for each link that starts with "ncbi_genbank" and ends with ".whl":
   - Right-click on the asset link, and click "Copy link address"
-  - Run `pip install --upgrade <PASTED LINK ADDRESS>`
+  - Run `pip3 install --upgrade <PASTED LINK ADDRESS>`
 
 The NT index packages also contain indexes for the RefSeq representative genomes and Betacoronavirus accessions (meaning
 they are are superset of the PyPI packages).

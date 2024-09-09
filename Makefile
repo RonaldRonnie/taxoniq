@@ -12,18 +12,18 @@ endif
 
 version: taxoniq/version.py
 taxoniq/version.py: setup.py
-	echo "__version__ = '$$(python setup.py --version)'" > $@
+	echo "__version__ = '$$(python3 setup.py --version)'" > $@
 
 get-wikipedia-extracts:
-	python -m taxoniq.build wikipedia-extracts
+	python3 -m taxoniq.build wikipedia-extracts
 
 build: version build-indexes
-	python -m build
+	python3 -m build
 
 build-indexes:
 	if ! type blastdbcmd; then curl -L -O $(LAUNCHPAD_BLASTPLUS_URL); dpkg -i $$(basename $(LAUNCHPAD_BLASTPLUS_URL)); fi
 	if [[ ! -e wikipedia_extracts.json ]]; then $(MAKE) get-wikipedia-extracts; fi
-	pip install --upgrade awscli zstandard urllib3 twine db_packages/ncbi_taxon_db db_packages/ncbi_refseq_accession_*
+	pip3 install --upgrade awscli zstandard urllib3 twine db_packages/ncbi_taxon_db db_packages/ncbi_refseq_accession_*
 	if [[ ! -f nodes.dmp ]] || [[ $$(($$(date +%s) - $$(stat --format %Y nodes.dmp))) -gt $$((60*60*24)) ]]; then curl $(TAXDUMP_URL) | tar -xvz; fi
 	mkdir -p $(BLASTDB)
 	aws s3 cp --no-sign-request s3://$(BLAST_DB_S3_BUCKET)/latest-dir .
@@ -32,22 +32,22 @@ ifdef BLAST_DATABASES
 else
 	aws s3 sync --size-only --no-sign-request s3://$(BLAST_DB_S3_BUCKET)/$$(cat latest-dir)/ $(BLASTDB)/ --exclude "*.p*" --exclude "env_*" --exclude "patnt*" --exclude "refseq_rna*"
 endif
-	python -m taxoniq.build trees
+	python3 -m taxoniq.build trees
 	if [[ $$CI ]]; then rm -rf $(BLASTDB); fi
 
 lint:
 	ruff taxoniq
 
 test:
-	python -m unittest discover --start-directory test --top-level-directory . --verbose
+	python3 -m unittest discover --start-directory test --top-level-directory . --verbose
 
 docs:
-	pip install sphinx guzzle_sphinx_theme m2r2==0.2.7
+	pip3 install sphinx guzzle_sphinx_theme m2r2==0.2.7
 	sphinx-build docs docs/html
 
 install: version build
-	pip install .
-	pip install --upgrade db_packages/ncbi_taxon_db db_packages/ncbi_refseq_accession_*
+	pip3 install .
+	pip3 install --upgrade db_packages/ncbi_taxon_db db_packages/ncbi_refseq_accession_*
 
 clean:
 	-rm -rf build dist db_packages/*/{build,dist}

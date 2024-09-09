@@ -23,7 +23,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Python prerequisites
-      run: pip install build wheel ruff setuptools marisa-trie
+      run: pip3 install build wheel ruff setuptools marisa-trie
     - name: Lint
       run: make lint
     - name: Install BLAST
