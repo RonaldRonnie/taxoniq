@@ -4,6 +4,7 @@ TAXDUMP_URL=https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/new_taxdump.ta
 # Note: The newest BLAST+ version is only required for building, not for using the indexes
 NCBI_BLASTPLUS_URL=https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.15.0+-x64-linux.tar.gz
 LAUNCHPAD_BLASTPLUS_URL=https://launchpad.net/ubuntu/+archive/primary/+files/ncbi-blast+_2.16.0+ds-6_amd64.deb
+BLAST_DATABASES=ref_viruses_rep_genomes ref_prok_rep_genomes ref_euk_rep_genomes Betacoronavirus core_nt
 
 ifndef BLASTDB
 $(error Please set BLASTDB)

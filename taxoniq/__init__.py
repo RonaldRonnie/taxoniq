@@ -36,7 +36,7 @@ Rank = Enum(
 
 
 BLASTDatabase = Enum(
-    "BLASTDatabase", ("ref_viruses_rep_genomes ref_prok_rep_genomes ref_euk_rep_genomes Betacoronavirus nt")
+    "BLASTDatabase", ("ref_viruses_rep_genomes ref_prok_rep_genomes ref_euk_rep_genomes Betacoronavirus core_nt")
 )
 
 
