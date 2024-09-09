@@ -21,7 +21,7 @@ build: version build-indexes
 	python3 -m build
 
 build-indexes:
-	if ! type blastdbcmd; then curl -L -O $(LAUNCHPAD_BLASTPLUS_URL); dpkg -i $$(basename $(LAUNCHPAD_BLASTPLUS_URL)); fi
+	if ! type blastdbcmd; then sudo apt-get install -y ncbi-blast+; curl -L -O $(LAUNCHPAD_BLASTPLUS_URL); sudo dpkg -i $$(basename $(LAUNCHPAD_BLASTPLUS_URL)); fi
 	if [[ ! -e wikipedia_extracts.json ]]; then $(MAKE) get-wikipedia-extracts; fi
 	pip3 install --upgrade awscli zstandard urllib3 twine db_packages/ncbi_taxon_db db_packages/ncbi_refseq_accession_*
 	if [[ ! -f nodes.dmp ]] || [[ $$(($$(date +%s) - $$(stat --format %Y nodes.dmp))) -gt $$((60*60*24)) ]]; then curl $(TAXDUMP_URL) | tar -xvz; fi
