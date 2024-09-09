@@ -334,7 +334,7 @@ def build_trees(blast_databases=os.environ.get("BLAST_DATABASES", "").split(), d
         )
 
     def db_path(db_name, filename="db.marisa"):
-        ncbi_db_name = "genbank" if "nt" in blast_databases else "refseq"
+        ncbi_db_name = "genbank" if "core_nt" in blast_databases else "refseq"
         db_package = f"ncbi_{ncbi_db_name}_{db_name}"
         return os.path.join(db_packages_dir, db_package, db_package, filename)
 
@@ -589,7 +589,7 @@ if __name__ == "__main__":
         if "BLAST_DATABASES" in os.environ:
             build_trees()
         else:
-            build_trees(blast_databases=[db.name for db in BLASTDatabase if db.name not in {"nt", "nr"}])
+            build_trees(blast_databases=[db.name for db in BLASTDatabase if db.name not in {"nt", "nr", "core_nt"}])
             build_trees(blast_databases=[db.name for db in BLASTDatabase])
     elif sys.argv[1] == "wikipedia-extracts":
         WikipediaDescriptionClient().build_index(destdir=os.path.join(os.path.dirname(__file__), ".."))
