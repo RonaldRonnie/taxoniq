@@ -25,7 +25,7 @@ setup(
         "marisa-trie >= 1.1.0",
         "zstandard >= 0.21.0",
         "urllib3 >= 1.26.5",
-        "ncbi-taxon-db >= 2023.11.4",
+        "ncbi-taxon-db >= 2024.9.07",
     ],
     tests_require=["coverage", "flake8", "wheel"],
     packages=find_packages(exclude=["test"]),

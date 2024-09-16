@@ -12,7 +12,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ncbi-refseq-accession-offsets",
-    version="2023.11.4",
+    version="2024.9.07",
     url="https://github.com/chanzuckerberg/taxoniq",
     license="MIT License",
     author="Andrey Kislyuk",

@@ -12,11 +12,11 @@ from setuptools import setup, find_packages
 
 setup(
     name="ncbi-taxon-db",
-    version="2023.11.4",
+    version="2024.9.07",
     install_requires=[
-        "ncbi-refseq-accession-db == 2023.11.4",
-        "ncbi-refseq-accession-lengths == 2023.11.4",
-        "ncbi-refseq-accession-offsets == 2023.11.4"
+        "ncbi-refseq-accession-db == 2024.9.07",
+        "ncbi-refseq-accession-lengths == 2024.9.07",
+        "ncbi-refseq-accession-offsets == 2024.9.07"
     ],
     url="https://github.com/chanzuckerberg/taxoniq",
     license="MIT License",
