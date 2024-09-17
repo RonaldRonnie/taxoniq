@@ -1,3 +1,10 @@
+Changes for v1.0.2 (2024-09-16)
+===============================
+
+-  Update data packages to version 2024-09-07
+
+-  Build infrastructure improvements
+
 Changes for v1.0.1 (2023-11-19)
 ===============================
 
