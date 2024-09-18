@@ -188,17 +188,19 @@ To retrieve an individual sequence in FASTA format given an accession ID, use `t
 To retrieve multiple sequences in FASTA format, use `--accession-id -` and pass the IDs on standard input, one per line:
 `taxoniq refseq-representative-genome-accessions --scientific-name="Apis mellifera" | jq -r .[] | taxoniq get-from-s3 --accession-id -`.
 
-## Using the nr/nt databases
-Because of their size, taxoniq wheels with indexes of the NT (GenBank Non-redundant nucleotide) BLAST database are
-distributed on GitHub instead of PyPI. After running `pip3 install taxoniq`, you can install the NT indexes as follows:
+## Using the core\_nt database
+Because of their size, taxoniq wheels with indexes of the
+[BLAST Core Nucleotide Database (core\_nt)](https://ncbiinsights.ncbi.nlm.nih.gov/2024/07/18/new-blast-core-nucleotide-database/)
+are distributed on GitHub instead of PyPI. After running `pip3 install taxoniq`, you can install the NT indexes as
+follows:
 
 - Navigate to https://github.com/taxoniq/taxoniq/releases/latest
 - In the "Assets" section, for each link that starts with "ncbi_genbank" and ends with ".whl":
   - Right-click on the asset link, and click "Copy link address"
   - Run `pip3 install --upgrade <PASTED LINK ADDRESS>`
 
-The NT index packages also contain indexes for the RefSeq representative genomes and Betacoronavirus accessions (meaning
-they are are superset of the PyPI packages).
+The core_nt index packages also contain indexes for the RefSeq representative genomes and Betacoronavirus accessions
+(meaning they are are superset of the PyPI packages).
 
 ## Streaming CLI I/O
 The `taxoniq` command-line interface can take streaming input from stdin and produce streaming output on stdout. This
