@@ -36,7 +36,7 @@ endif
 	if [[ $$CI ]]; then rm -rf $(BLASTDB); fi
 
 lint:
-	ruff taxoniq
+	ruff check taxoniq
 
 test:
 	python3 -m unittest discover --start-directory test --top-level-directory . --verbose

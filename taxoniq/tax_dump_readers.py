@@ -12,7 +12,7 @@ class TaxDumpReader:
             value = value.rstrip("\t|")
             if field[0] == "rank":
                 return Rank[value.replace(" ", "_")].value
-            if field[1] == int and value == "":
+            if field[1] is int and value == "":
                 return None
             return field[1](value)
 
