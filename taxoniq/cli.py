@@ -6,6 +6,7 @@ Run "taxoniq COMMAND --help" for command-specific usage and options.
 If an error occurs, Taxoniq will exit with code 4 when the error is due to a missing taxon or accession ID,
 or code 1 for all other errors.
 """
+
 import argparse
 import json
 import logging
