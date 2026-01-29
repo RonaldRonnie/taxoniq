@@ -23,6 +23,27 @@ http = urllib3.PoolManager(maxsize=min(64, os.cpu_count() + 8))
 
 db_packages_dir = os.path.join(os.path.dirname(__file__), "..", "db_packages")
 
+def write_taxonomy_metadata(destdir, taxdump_path="."):
+    """
+    Write explicit metadata about the NCBI taxonomy dump used to build indexes.
+    This improves reproducibility and release transparency.
+    """
+    nodes_path = os.path.join(taxdump_path, "nodes.dmp")
+    names_path = os.path.join(taxdump_path, "names.dmp")
+
+    if not os.path.exists(nodes_path):
+        raise FileNotFoundError(f"nodes.dmp not found at {nodes_path}")
+
+    metadata = {
+        "source": "NCBI Taxonomy",
+        "nodes_mtime": int(os.stat(nodes_path).st_mtime),
+        "names_mtime": int(os.stat(names_path).st_mtime) if os.path.exists(names_path) else None,
+        "build_time_utc": int(__import__("time").time()),
+    }
+
+    with open(os.path.join(destdir, "taxonomy_metadata.json"), "w") as fh:
+        json.dump(metadata, fh, indent=2)
+
 
 class WikipediaDescriptionClient:
     def get_taxonbar_page_ids(self):
@@ -290,6 +311,11 @@ def get_virus_genome_data():
 def build_trees(blast_databases=os.environ.get("BLAST_DATABASES", "").split(), destdir=None):
     logging.basicConfig(level=logging.INFO)
 
+    logger.info(
+    "Building taxonomy indexes using nodes.dmp mtime=%s",
+    int(os.stat("nodes.dmp").st_mtime) if os.path.exists("nodes.dmp") else "MISSING",
+)
+
     if destdir is None:
         destdir = os.path.join(db_packages_dir, "ncbi_taxon_db", "ncbi_taxon_db")
 
@@ -385,8 +411,12 @@ def build_trees(blast_databases=os.environ.get("BLAST_DATABASES", "").split(), d
     t = RecordTrie("I", [(sn, (tid,)) for sn, tid in sn2taxid.items()])
     t.save(os.path.join(destdir, "sn2taxid.marisa"))
     write_taxid_to_string_index(mapping=load_common_names(names), index_name="common_name", destdir=destdir)
+    timestamp = int(os.stat("nodes.dmp").st_mtime)
     with open(os.path.join(destdir, "version.py"), "w") as fh:
-        fh.write(f"db_timestamp = {int(os.stat('nodes.dmp').st_mtime)}")
+        fh.write(f"db_timestamp = {timestamp}")
+
+    write_taxonomy_metadata(destdir=destdir)
+    write_taxonomy_metadata(destdir=os.path.dirname(__file__))
 
 
 def process_assembly_report(assembly_summary):

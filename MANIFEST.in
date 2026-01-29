@@ -1,2 +1,3 @@
 include LICENSE* *.rst *.md
 recursive-include test *
+include taxoniq/taxonomy_metadata.json

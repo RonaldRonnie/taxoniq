@@ -8,7 +8,7 @@ from setuptools import Extension, find_packages, setup
 
 setup(
     name="taxoniq",
-    version="1.0.3",
+    version="1.0.4",
     url="https://github.com/chanzuckerberg/taxoniq",
     project_urls={
         "Documentation": "https://chanzuckerberg.github.io/taxoniq",
@@ -29,6 +29,10 @@ setup(
     ],
     tests_require=["coverage", "flake8", "wheel"],
     packages=find_packages(exclude=["test"]),
+    include_package_data=True,
+    package_data={
+        "taxoniq": ["taxonomy_metadata.json"],
+    },
     extras_require={
         # "nt_accession_db": []
         # "nr_accession_db": []
@@ -37,7 +41,6 @@ setup(
         "console_scripts": ["taxoniq=taxoniq.cli:cli"],
     },
     platforms=["MacOS X", "Posix"],
-    include_package_data=True,
     test_suite="test",
     classifiers=[
         "Intended Audience :: Developers",

@@ -1,3 +1,8 @@
+Changes for v1.0.4 (2026-01-29)
+===============================
+
+-  Include ``taxonomy_metadata.json`` in the ``taxoniq`` wheel as package data
+
 Changes for v1.0.3 (2024-09-18)
 ===============================
 
