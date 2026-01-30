@@ -9,26 +9,24 @@ class TaxDumpReader:
         try:
             self.fh = open(filename)
         except FileNotFoundError as e:
-            raise FileNotFoundError(f"Required NCBI taxonomy file not found: {filename}") from e
-
+            raise FileNotFoundError(
+                f"Required NCBI taxonomy file not found: {filename}"
+            ) from e
 
     def __iter__(self):
         def cast(field, value):
             value = value.rstrip("\t|")
-        if field[0] == "rank":
-            return Rank[value.replace(" ", "_")].value
-        if field[1] is int and value == "":
-            return None
-        return field[1](value)
+            if field[0] == "rank":
+                return Rank[value.replace(" ", "_")].value
+            if field[1] is int and value == "":
+                return None
+            return field[1](value)
 
-    try:
         for row in self.fh:
             yield {
                 self.fields[i][0]: cast(self.fields[i], value)
                 for i, value in enumerate(row.strip().split("\t|\t"))
             }
-    finally:
-        self.fh.close()
 
 
 class NodesReader(TaxDumpReader):
